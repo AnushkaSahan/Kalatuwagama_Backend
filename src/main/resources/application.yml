@@ -52,8 +52,6 @@ spring:
       max-request-size: 10MB
 
   jackson:
-    serialization:
-      write-dates-as-timestamps: false
     time-zone: Asia/Colombo
 
 # JWT Configuration
