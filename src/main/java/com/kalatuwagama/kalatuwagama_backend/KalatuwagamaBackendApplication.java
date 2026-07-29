@@ -9,5 +9,4 @@ public class KalatuwagamaBackendApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KalatuwagamaBackendApplication.class, args);
 	}
-
 }
