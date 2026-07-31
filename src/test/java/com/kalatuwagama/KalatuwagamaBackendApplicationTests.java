@@ -1,4 +1,4 @@
-package com.kalatuwagama.kalatuwagama_backend;
+package com.kalatuwagama;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
