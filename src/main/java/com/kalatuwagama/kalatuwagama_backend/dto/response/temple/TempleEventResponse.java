@@ -2,24 +2,23 @@ package com.kalatuwagama.kalatuwagama_backend.dto.response.temple;
 
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.UUID;
 
 @Data
-public class PoojaScheduleResponse {
+public class TempleEventResponse {
     private UUID id;
     private UUID templeId;
     private String templeName;
-    private String name;
+    private String title;
     private String description;
-    private String dayOfWeek;
-    private LocalTime time;
-    private String recurrenceType;
-    private LocalDate specialDate;
-    private Integer durationMinutes;
-    private boolean active;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+    private String location;
+    private boolean featured;
+    private String status;
+    private boolean registrationRequired;
+    private String imageUrl;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
