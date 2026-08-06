@@ -8,5 +8,7 @@ public record AnnouncementDto(
         String id,
         @NotBlank String title,
         String description,
-        @NotNull LocalDateTime publishDate
+        @NotNull LocalDateTime publishDate,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
 ) {}

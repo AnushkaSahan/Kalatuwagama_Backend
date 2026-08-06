@@ -11,4 +11,5 @@ public interface UserService {
     UserDto getById(UUID id);
     List<UserDto> getAll();
     UserDto getByEmail(String email);
+    void changePassword(String email, String currentPassword, String newPassword);
 }

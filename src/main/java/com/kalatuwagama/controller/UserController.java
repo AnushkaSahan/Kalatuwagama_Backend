@@ -1,5 +1,6 @@
 package com.kalatuwagama.controller;
 
+import com.kalatuwagama.dto.ChangePasswordRequest;
 import com.kalatuwagama.dto.UserDto;
 import com.kalatuwagama.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -51,6 +53,20 @@ public class UserController {
     @Operation(summary = "Update an existing user")
     public ResponseEntity<UserDto> update(@PathVariable UUID id, @Valid @RequestBody UserDto dto) {
         return ResponseEntity.ok(userService.update(id, dto));
+    }
+
+    @PostMapping("/change-password")
+    @Operation(summary = "Change the authenticated user's password")
+    public ResponseEntity<Void> changePassword(
+            Authentication authentication,
+            @Valid @RequestBody ChangePasswordRequest request
+    ) {
+        userService.changePassword(
+                authentication.getName(),
+                request.currentPassword(),
+                request.newPassword()
+        );
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")

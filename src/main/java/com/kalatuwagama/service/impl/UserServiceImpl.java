@@ -87,4 +87,24 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
         return mapper.toUserDto(user);
     }
+
+    @Override
+    public void changePassword(String email, String currentPassword, String newPassword) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + email));
+
+        boolean passwordMatches;
+        try {
+            passwordMatches = passwordEncoder.matches(currentPassword, user.getPassword());
+        } catch (IllegalArgumentException ex) {
+            passwordMatches = currentPassword != null && currentPassword.equals(user.getPassword());
+        }
+
+        if (!passwordMatches) {
+            throw new BadRequestException("Current password is incorrect");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+    }
 }
