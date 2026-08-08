@@ -9,5 +9,6 @@ public record FoundationProjectDto(
         String description,
         LocalDate startDate,
         LocalDate endDate,
-        String imageUrl
+        String imageUrl,
+        String imageFit
 ) {}

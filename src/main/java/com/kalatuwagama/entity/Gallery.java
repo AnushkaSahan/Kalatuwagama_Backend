@@ -12,11 +12,17 @@ import lombok.EqualsAndHashCode;
 @Table(name = "gallery")
 public class Gallery extends BaseEntity {
 
-    @Column(nullable = false)
-    private String title;
+    // References Event.id — every gallery photo belongs to an event/album
+    private String eventId;
 
     @Column(nullable = false)
     private String imageUrl;
 
+// Optional per-photo caption
+    private String title;
+
     private String category;
+
+    // Display fit for the photo: "cover" (fill/crop) or "contain" (full image)
+    private String imageFit = "cover";
 }

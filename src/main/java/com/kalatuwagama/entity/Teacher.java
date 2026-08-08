@@ -19,5 +19,8 @@ public class Teacher extends BaseEntity {
 
     private String phone;
 
-    private String imageUrl;
+private String imageUrl;
+
+    // Display fit for the image: "cover" (fill/crop) or "contain" (full image)
+    private String imageFit = "cover";
 }

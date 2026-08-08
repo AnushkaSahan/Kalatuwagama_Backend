@@ -5,9 +5,11 @@ import java.time.LocalDateTime;
 
 public record GalleryDto(
         String id,
-        @NotBlank String title,
+        @NotBlank String eventId,
         @NotBlank String imageUrl,
+        String title,
         String category,
+        String imageFit,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {}

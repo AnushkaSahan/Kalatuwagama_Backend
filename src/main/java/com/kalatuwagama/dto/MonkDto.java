@@ -9,6 +9,7 @@ public record MonkDto(
         String position,
         String biography,
         String imageUrl,
+        String imageFit,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {}

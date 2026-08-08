@@ -2,7 +2,6 @@ package com.kalatuwagama.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -24,6 +23,10 @@ public class DonationInfo extends BaseEntity {
 
     private String branch;
 
-    @Lob
+@Column(columnDefinition = "TEXT")
     private String qrImage;
+
+    // Display fit for the QR image: "cover" (fill/crop) or "contain" (full image)
+    private String imageFit = "cover";
 }
+

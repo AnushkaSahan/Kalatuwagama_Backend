@@ -2,6 +2,7 @@ package com.kalatuwagama.mapper;
 
 import com.kalatuwagama.dto.*;
 import com.kalatuwagama.entity.*;
+import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -63,9 +64,81 @@ public interface EntityMapper {
     FoundationProject toEntity(FoundationProjectDto dto);
     void updateEntity(FoundationProjectDto dto, @MappingTarget FoundationProject entity);
 
-    // User - note: password is ignored in update to avoid accidental override
+// User - note: password is ignored in update to avoid accidental override
     UserDto toUserDto(User entity);
     User toEntity(UserDto dto);
     @Mapping(target = "password", ignore = true)
     void updateEntity(UserDto dto, @MappingTarget User entity);
+
+    // Normalize imageFit to "cover" when null (existing records / missing value)
+    @AfterMapping
+    default void normalizeEventImageFit(Event entity, @MappingTarget EventDto dto) {
+        if (dto.imageFit() == null) dto = new EventDto(dto.id(), dto.title(), dto.description(), dto.location(), dto.eventDate(), dto.imageUrl(), "cover", dto.createdAt(), dto.updatedAt());
+    }
+
+    @AfterMapping
+    default void normalizeMonkImageFit(Monk entity, @MappingTarget MonkDto dto) {
+        if (dto.imageFit() == null) dto = new MonkDto(dto.id(), dto.name(), dto.position(), dto.biography(), dto.imageUrl(), "cover", dto.createdAt(), dto.updatedAt());
+    }
+
+    @AfterMapping
+    default void normalizeTeacherImageFit(Teacher entity, @MappingTarget TeacherDto dto) {
+        if (dto.imageFit() == null) dto = new TeacherDto(dto.id(), dto.name(), dto.position(), dto.phone(), dto.imageUrl(), "cover", dto.createdAt(), dto.updatedAt());
+    }
+
+    @AfterMapping
+    default void normalizeTempleHistoryImageFit(TempleHistory entity, @MappingTarget TempleHistoryDto dto) {
+        if (dto.imageFit() == null) dto = new TempleHistoryDto(dto.id(), dto.title(), dto.description(), dto.imageUrl(), "cover", dto.createdAt(), dto.updatedAt());
+    }
+
+    @AfterMapping
+    default void normalizeFoundationProjectImageFit(FoundationProject entity, @MappingTarget FoundationProjectDto dto) {
+        if (dto.imageFit() == null) dto = new FoundationProjectDto(dto.id(), dto.title(), dto.description(), dto.startDate(), dto.endDate(), dto.imageUrl(), "cover");
+    }
+
+    @AfterMapping
+    default void normalizeDonationInfoImageFit(DonationInfo entity, @MappingTarget DonationInfoDto dto) {
+        if (dto.imageFit() == null) dto = new DonationInfoDto(dto.id(), dto.bankName(), dto.accountName(), dto.accountNumber(), dto.branch(), dto.qrImage(), "cover");
+    }
+
+    @AfterMapping
+    default void normalizeGalleryImageFit(Gallery entity, @MappingTarget GalleryDto dto) {
+        if (dto.imageFit() == null) dto = new GalleryDto(dto.id(), dto.eventId(), dto.imageUrl(), dto.title(), dto.category(), "cover", dto.createdAt(), dto.updatedAt());
+    }
+
+    // Ensure entity imageFit defaults to cover on create/update when missing
+    @AfterMapping
+    default void ensureEventImageFit(EventDto dto, @MappingTarget Event entity) {
+        if (entity.getImageFit() == null) entity.setImageFit("cover");
+    }
+
+    @AfterMapping
+    default void ensureMonkImageFit(MonkDto dto, @MappingTarget Monk entity) {
+        if (entity.getImageFit() == null) entity.setImageFit("cover");
+    }
+
+    @AfterMapping
+    default void ensureTeacherImageFit(TeacherDto dto, @MappingTarget Teacher entity) {
+        if (entity.getImageFit() == null) entity.setImageFit("cover");
+    }
+
+    @AfterMapping
+    default void ensureTempleHistoryImageFit(TempleHistoryDto dto, @MappingTarget TempleHistory entity) {
+        if (entity.getImageFit() == null) entity.setImageFit("cover");
+    }
+
+    @AfterMapping
+    default void ensureFoundationProjectImageFit(FoundationProjectDto dto, @MappingTarget FoundationProject entity) {
+        if (entity.getImageFit() == null) entity.setImageFit("cover");
+    }
+
+    @AfterMapping
+    default void ensureDonationInfoImageFit(DonationInfoDto dto, @MappingTarget DonationInfo entity) {
+        if (entity.getImageFit() == null) entity.setImageFit("cover");
+    }
+
+    @AfterMapping
+    default void ensureGalleryImageFit(GalleryDto dto, @MappingTarget Gallery entity) {
+        if (entity.getImageFit() == null) entity.setImageFit("cover");
+    }
 }

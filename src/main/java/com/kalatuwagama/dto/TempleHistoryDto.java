@@ -8,6 +8,7 @@ public record TempleHistoryDto(
         @NotBlank String title,
         String description,
         String imageUrl,
+        String imageFit,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {}

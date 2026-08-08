@@ -2,7 +2,6 @@ package com.kalatuwagama.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,7 +17,6 @@ public class Announcement extends BaseEntity {
     @Column(nullable = false)
     private String title;
 
-    @Lob
     @Column(columnDefinition = "TEXT")
     private String description;
 

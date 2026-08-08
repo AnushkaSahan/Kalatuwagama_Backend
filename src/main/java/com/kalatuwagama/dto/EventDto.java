@@ -11,6 +11,7 @@ public record EventDto(
         String location,
         @NotNull LocalDateTime eventDate,
         String imageUrl,
+        String imageFit,
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {}

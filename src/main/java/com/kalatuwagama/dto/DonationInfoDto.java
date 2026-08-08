@@ -8,5 +8,6 @@ public record DonationInfoDto(
         @NotBlank String accountName,
         @NotBlank String accountNumber,
         String branch,
-        String qrImage
+        String qrImage,
+        String imageFit
 ) {}
