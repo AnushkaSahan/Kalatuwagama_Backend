@@ -49,7 +49,8 @@ public class SecurityConfig {
             "/api/announcements/**",
             "/api/donation-info/**",
             "/api/foundation-projects/**",
-            "/api/teachers/**"
+            "/api/teachers/**",
+            "/api/daham-pasala-info/**"
     };
 
     @Bean

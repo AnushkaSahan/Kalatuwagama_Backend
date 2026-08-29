@@ -44,6 +44,11 @@ public interface EntityMapper {
     DonationInfo toEntity(DonationInfoDto dto);
     void updateEntity(DonationInfoDto dto, @MappingTarget DonationInfo entity);
 
+    // DahamPasalaInfo
+    DahamPasalaInfoDto toDto(DahamPasalaInfo entity);
+    DahamPasalaInfo toEntity(DahamPasalaInfoDto dto);
+    void updateEntity(DahamPasalaInfoDto dto, @MappingTarget DahamPasalaInfo entity);
+
     // ContactMessage
     ContactMessageDto toDto(ContactMessage entity);
     ContactMessage toEntity(ContactMessageDto dto);
@@ -64,7 +69,7 @@ public interface EntityMapper {
     FoundationProject toEntity(FoundationProjectDto dto);
     void updateEntity(FoundationProjectDto dto, @MappingTarget FoundationProject entity);
 
-// User - note: password is ignored in update to avoid accidental override
+    // User - note: password is ignored in update to avoid accidental override
     UserDto toUserDto(User entity);
     User toEntity(UserDto dto);
     @Mapping(target = "password", ignore = true)
@@ -99,6 +104,11 @@ public interface EntityMapper {
     @AfterMapping
     default void normalizeDonationInfoImageFit(DonationInfo entity, @MappingTarget DonationInfoDto dto) {
         if (dto.imageFit() == null) dto = new DonationInfoDto(dto.id(), dto.bankName(), dto.accountName(), dto.accountNumber(), dto.branch(), dto.qrImage(), "cover");
+    }
+
+    @AfterMapping
+    default void normalizeDahamPasalaInfoImageFit(DahamPasalaInfo entity, @MappingTarget DahamPasalaInfoDto dto) {
+        if (dto.imageFit() == null) dto = new DahamPasalaInfoDto(dto.id(), dto.introImage(), "cover", dto.createdAt(), dto.updatedAt());
     }
 
     @AfterMapping
@@ -139,6 +149,11 @@ public interface EntityMapper {
 
     @AfterMapping
     default void ensureGalleryImageFit(GalleryDto dto, @MappingTarget Gallery entity) {
+        if (entity.getImageFit() == null) entity.setImageFit("cover");
+    }
+
+    @AfterMapping
+    default void ensureDahamPasalaInfoImageFit(DahamPasalaInfoDto dto, @MappingTarget DahamPasalaInfo entity) {
         if (entity.getImageFit() == null) entity.setImageFit("cover");
     }
 }
