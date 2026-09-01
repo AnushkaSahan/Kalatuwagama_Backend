@@ -37,7 +37,9 @@ public class SecurityConfig {
     private static final List<String> ALLOWED_ORIGINS = List.of(
             "http://localhost:5173", // admin dashboard
             "http://localhost:5174", // public website
-            "http://localhost:3000"
+            "http://localhost:3000",
+            "https://kalatuwagamaadmin.vercel.app",
+            "https://kalatuwagamaweb.vercel.app"
     );
 
     // Read-only content the public website is allowed to fetch without logging in.
