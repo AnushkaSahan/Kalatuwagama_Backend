@@ -4,6 +4,16 @@ spring:
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
+    hikari:
+      # Keep at least 1 connection open so Neon's compute doesn't see the
+      # database as fully idle and auto-suspend between requests. Combined
+      # with an external keep-alive ping (see /actuator/health), this stops
+      # every request from paying a cold-start penalty.
+      minimum-idle: 1
+      maximum-pool-size: 5
+      idle-timeout: 240000        # 4 min — stays under Neon's ~5 min autosuspend
+      keepalive-time: 120000      # 2 min — periodic ping to keep the connection warm
+      connection-timeout: 20000   # fail fast instead of hanging for the default 30s
 
   jpa:
     hibernate:
@@ -19,6 +29,15 @@ spring:
 
 server:
   port: ${PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
 
 jwt:
   secret: ${JWT_SECRET:your-very-secure-secret-key-for-jwt-signing}

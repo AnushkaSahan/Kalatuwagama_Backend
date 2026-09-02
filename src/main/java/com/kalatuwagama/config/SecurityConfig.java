@@ -101,6 +101,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/uploads/**").permitAll()
+                        // Lets an external keep-alive pinger (e.g. UptimeRobot) hit this
+                        // without a token, to stop the free-tier host from sleeping.
+                        .requestMatchers("/actuator/health").permitAll()
                         .requestMatchers("/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                         // Public contact form submission (reading/deleting messages stays admin-only)
                         .requestMatchers(HttpMethod.POST, "/api/contact-messages").permitAll()
