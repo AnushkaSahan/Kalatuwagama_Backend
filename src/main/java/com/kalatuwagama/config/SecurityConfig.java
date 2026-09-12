@@ -100,7 +100,6 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/uploads/**").permitAll()
                         // Lets an external keep-alive pinger (e.g. UptimeRobot) hit this
                         // without a token, to stop the free-tier host from sleeping.
                         .requestMatchers("/actuator/health").permitAll()

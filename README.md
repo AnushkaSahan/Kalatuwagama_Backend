@@ -54,6 +54,24 @@ Before production deployment:
 - Set a strong `JWT_SECRET`
 - Restrict CORS origin(s)
 
+### Image storage (Cloudinary)
+
+Gallery and other image uploads are stored on Cloudinary, not on the local
+filesystem — required in production since deployed instances don't have
+persistent/shared disk. Set these environment variables:
+
+| Variable                     | Required | Description                                              |
+|-------------------------------|:--------:|-----------------------------------------------------------|
+| `CLOUDINARY_CLOUD_NAME`       | Yes      | From your Cloudinary dashboard                             |
+| `CLOUDINARY_API_KEY`          | Yes      | From your Cloudinary dashboard                             |
+| `CLOUDINARY_API_SECRET`       | Yes      | From your Cloudinary dashboard — keep secret               |
+| `CLOUDINARY_UPLOAD_FOLDER`    | No       | Cloudinary folder for uploads (default `kalatuwagama/gallery`) |
+| `UPLOAD_MAX_FILE_SIZE_MB`     | No       | Max size per image, in MB (default `10`)                   |
+| `UPLOAD_MAX_REQUEST_SIZE_MB`  | No       | Max total multipart request size, in MB (default `50`)     |
+
+Sign up for a free account at https://cloudinary.com to get the cloud name,
+API key and API secret.
+
 ## Run Locally
 
 From this folder:

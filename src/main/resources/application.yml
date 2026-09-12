@@ -27,8 +27,23 @@ spring:
     serialization:
       fail-on-empty-beans: false
 
+  servlet:
+    multipart:
+      max-file-size: ${UPLOAD_MAX_REQUEST_SIZE_MB:50}MB
+      max-request-size: ${UPLOAD_MAX_REQUEST_SIZE_MB:50}MB
+
 server:
   port: ${PORT:8080}
+
+# Cloudinary — gallery image storage. Create a free account at
+# https://cloudinary.com and set these as real environment variables in
+# every environment (never commit real values).
+cloudinary:
+  cloud-name: ${CLOUDINARY_CLOUD_NAME}
+  api-key: ${438931845876294}
+  api-secret: ${xCtS08jYqIj1AQXkjIHYsxbLO6I}
+  # Folder inside the Cloudinary account where gallery uploads are stored.
+  upload-folder: ${CLOUDINARY_UPLOAD_FOLDER:kalatuwagama/gallery}
 
 management:
   endpoints:
@@ -49,6 +64,9 @@ app:
     allowed-methods: GET,POST,PUT,DELETE,OPTIONS
     allowed-headers: "*"
     allow-credentials: true
+  upload:
+    # Per-file size cap enforced before anything is sent to Cloudinary.
+    max-file-size-mb: ${UPLOAD_MAX_FILE_SIZE_MB:10}
 
 springdoc:
   api-docs:
