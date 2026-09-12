@@ -39,7 +39,7 @@ server:
 # https://cloudinary.com and set these as real environment variables in
 # every environment (never commit real values).
 cloudinary:
-  cloud-name: ${CLOUDINARY_CLOUD_NAME}
+  cloud-name: ${dddjbmxnp}
   api-key: ${438931845876294}
   api-secret: ${xCtS08jYqIj1AQXkjIHYsxbLO6I}
   # Folder inside the Cloudinary account where gallery uploads are stored.
