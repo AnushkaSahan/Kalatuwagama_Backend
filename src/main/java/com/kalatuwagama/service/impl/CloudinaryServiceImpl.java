@@ -55,10 +55,24 @@ public class CloudinaryServiceImpl implements CloudinaryService {
             );
             String url = (String) result.get("secure_url");
             String publicId = (String) result.get("public_id");
+            if (url == null || publicId == null) {
+                log.error("Cloudinary upload for '{}' returned an unexpected response: {}",
+                        file.getOriginalFilename(), result);
+                throw new BadRequestException("Cloudinary did not return an image URL. Check your Cloudinary credentials.");
+            }
             return new CloudinaryUploadResult(url, publicId, file.getOriginalFilename());
+        } catch (BadRequestException e) {
+            throw e;
         } catch (IOException e) {
             log.error("Cloudinary upload failed for file '{}': {}", file.getOriginalFilename(), e.getMessage());
             throw new BadRequestException("Failed to upload image. Please try again.");
+        } catch (Exception e) {
+            // The Cloudinary SDK throws unchecked exceptions (e.g. auth
+            // failures, network errors) that don't extend IOException —
+            // catch those too so a bad credential shows up as a clear 400
+            // with a real message instead of an opaque 500.
+            log.error("Cloudinary upload failed for file '{}': {}", file.getOriginalFilename(), e.getMessage(), e);
+            throw new BadRequestException("Image upload failed: " + e.getMessage());
         }
     }
 
